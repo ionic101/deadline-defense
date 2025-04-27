@@ -6,6 +6,9 @@
 [Oo]bj/
 3rdParty/
 Builds/
+UserSettings/
+Logs/
+
 
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
