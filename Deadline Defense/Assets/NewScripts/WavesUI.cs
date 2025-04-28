@@ -1,13 +1,17 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class WavesCounter : MonoBehaviour
+public class WavesUI : MonoBehaviour
 {
-    public Text wavesText;
+    private Text wavesText;
     public WaveSpawner waveObject;
-   
-    // Update is called once per frame
-    void Update()
+
+    private void Start()
+    {
+        wavesText = GetComponent<Text>();
+    }
+
+    private void Update()
     {
         wavesText.text = PlayerStats.Rounds.ToString() + "/" + waveObject.waves.Length.ToString();
     }

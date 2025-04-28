@@ -1,20 +1,22 @@
 using UnityEngine;
-using System.Collections;
-using NUnit.Framework;
 using System.Collections.Generic;
 
 
-public class Tower : MonoBehaviour {
-
-    private Transform target;
+public class Tower : MonoBehaviour
+{
     private Enemy targetEnemy;
     private float fireCountdown = 0f;
-	private int level = 1;
+	private int curLevel = 1;
 
     public List<TowerInfo> Upgrades;
-	public TowerInfo TowerInfo;
     public string EnemyTag = "Enemy";
 
+    public float ShootRange = 15f;
+    public float ShootDamage = 1f;
+    public float ShootRate = 1f;
+	public int BuyCost = 100;
+    public int SellCost = 0;
+	public int Level { get {  return curLevel; } }
 
     void Start () {
 		InvokeRepeating("UpdateTarget", 0f, 0.5f);
@@ -35,44 +37,36 @@ public class Tower : MonoBehaviour {
 			}
 		}
 
-		if (nearestEnemy != null && shortestDistance <= TowerInfo.FireRange)
+		if (nearestEnemy != null && shortestDistance <= ShootRange)
 		{
-			target = nearestEnemy.transform;
 			targetEnemy = nearestEnemy.GetComponent<Enemy>();
-		} else
+		}
+		else
 		{
-			target = null;
+			targetEnemy = null;
 		}
 
 	}
 
-	void Update () {
-		if (target == null)
-		{
+	void Update ()
+	{
+		if (targetEnemy == null)
 			return;
-		}
 
 		UpdateRotation();
 
 		if (fireCountdown <= 0f)
 		{
 			Shoot();
-			fireCountdown = 1f / TowerInfo.FireRate;
+			fireCountdown = 1f / ShootRate;
 		}
 
 		fireCountdown -= Time.deltaTime;
-
 	}
-
-	public int GetSellAmount()
-	{
-		return 100;
-	}
-
 
     void UpdateRotation ()
 	{
-        Vector3 dir = target.position - transform.position;
+        Vector3 dir = targetEnemy.transform.position - transform.position;
         Quaternion lookRotation = Quaternion.LookRotation(dir);
         GetComponent<Transform>().rotation = Quaternion.Euler(0f, lookRotation.eulerAngles.y, 0f);
     }
@@ -80,18 +74,12 @@ public class Tower : MonoBehaviour {
 	void Shoot ()
 	{
         if (targetEnemy)
-            targetEnemy.TakeDamage(TowerInfo.FireDamage);
-	}
-
-	void Upgrade()
-	{
-		level++;
-		TowerInfo = Upgrades[level - 2];
+            targetEnemy.TakeDamage(ShootDamage);
 	}
 
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, TowerInfo.FireRange);
+        Gizmos.DrawWireSphere(transform.position, ShootDamage);
     }
 }
