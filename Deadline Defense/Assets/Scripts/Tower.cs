@@ -1,16 +1,18 @@
 using UnityEngine;
 using System.Collections;
+using NUnit.Framework;
+using System.Collections.Generic;
+
 
 public class Tower : MonoBehaviour {
+
     private Transform target;
     private Enemy targetEnemy;
     private float fireCountdown = 0f;
 	private int level = 1;
 
-
-    public float FireRange = 15f;
-    public float FireDamage = 1f;
-    public float FireRate = 1f;
+    public List<TowerInfo> Upgrades;
+	public TowerInfo TowerInfo;
     public string EnemyTag = "Enemy";
 
 
@@ -33,7 +35,7 @@ public class Tower : MonoBehaviour {
 			}
 		}
 
-		if (nearestEnemy != null && shortestDistance <= FireRange)
+		if (nearestEnemy != null && shortestDistance <= TowerInfo.FireRange)
 		{
 			target = nearestEnemy.transform;
 			targetEnemy = nearestEnemy.GetComponent<Enemy>();
@@ -55,14 +57,20 @@ public class Tower : MonoBehaviour {
 		if (fireCountdown <= 0f)
 		{
 			Shoot();
-			fireCountdown = 1f / FireRate;
+			fireCountdown = 1f / TowerInfo.FireRate;
 		}
 
 		fireCountdown -= Time.deltaTime;
 
 	}
 
-	void UpdateRotation ()
+	public int GetSellAmount()
+	{
+		return 100;
+	}
+
+
+    void UpdateRotation ()
 	{
         Vector3 dir = target.position - transform.position;
         Quaternion lookRotation = Quaternion.LookRotation(dir);
@@ -72,18 +80,18 @@ public class Tower : MonoBehaviour {
 	void Shoot ()
 	{
         if (targetEnemy)
-            targetEnemy.TakeDamage(FireDamage);
+            targetEnemy.TakeDamage(TowerInfo.FireDamage);
 	}
 
 	void Upgrade()
 	{
 		level++;
-
+		TowerInfo = Upgrades[level - 2];
 	}
 
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, FireRange);
+        Gizmos.DrawWireSphere(transform.position, TowerInfo.FireRange);
     }
 }
