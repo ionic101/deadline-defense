@@ -32,12 +32,20 @@ public class Node : MonoBehaviour {
         if (EventSystem.current.IsPointerOverGameObject())
 			return;
 
+		if (tower != null)
+		{
+            UpgraderUI.instance.UpdateData(tower);
+            UpgraderUI.instance.Upgrader.SetActive(true);
+			return;
+        }
+
 		if (towersController.IsCanBuild)
 		{
             towersController.Build(this);
 			SetColor(startColor);
-        }	
-	}
+        }
+        UpgraderUI.instance.Upgrader.SetActive(false);
+    }
 
 	void OnMouseEnter ()
 	{

@@ -1,10 +1,11 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 [System.Serializable]
-public class Wave {
+public class Wave
+{
 
-	public GameObject enemy;
-	public int count;
-	public float rate;
+    public Unit[] typesOfEnemys;
+    public float rate;
 
 }

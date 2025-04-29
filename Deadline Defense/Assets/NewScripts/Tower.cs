@@ -6,17 +6,36 @@ public class Tower : MonoBehaviour
 {
     private Enemy targetEnemy;
     private float fireCountdown = 0f;
-	private int curLevel = 1;
+	private int curLevel = 0;
 
-    public List<TowerInfo> Upgrades;
+    public List<TowerUpgrade> Upgrades;
     public string EnemyTag = "Enemy";
 
+	public string Name = "Tower";
+	public Sprite Sprite;
     public float ShootRange = 15f;
     public float ShootDamage = 1f;
     public float ShootRate = 1f;
 	public int BuyCost = 100;
     public int SellCost = 0;
-	public int Level { get {  return curLevel; } }
+	public int Level { get {  return curLevel + 1; } }
+	public TowerUpgrade NextUpgrade {
+		get
+		{
+			Debug.Log(Upgrades.Count);
+            if (curLevel < Upgrades.Count)
+				return Upgrades[curLevel];
+			return null;
+		}
+	}
+	public bool IsCanUpdate
+	{
+		get
+		{
+			return curLevel < Upgrades.Count &&
+				PlayerStats.Money >= Upgrades[curLevel].UpgradeCost;
+		}
+	}
 
     void Start () {
 		InvokeRepeating("UpdateTarget", 0f, 0.5f);
@@ -82,4 +101,19 @@ public class Tower : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, ShootDamage);
     }
+
+	public void Upgrade()
+	{
+		if (!IsCanUpdate)
+			return;
+
+        ShootRange = Upgrades[curLevel].FireRange;
+        ShootDamage = Upgrades[curLevel].FireDamage;
+        ShootRate = Upgrades[curLevel].FireRate;
+        SellCost = Upgrades[curLevel].SellCost;
+		PlayerStats.Money -= Upgrades[curLevel].UpgradeCost;
+        curLevel++;
+    }
+
+	
 }
