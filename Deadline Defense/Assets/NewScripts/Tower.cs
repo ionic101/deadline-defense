@@ -99,7 +99,7 @@ public class Tower : MonoBehaviour
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, ShootDamage);
+        Gizmos.DrawWireSphere(transform.position, ShootRange);
     }
 
 	public void Upgrade()
