@@ -25,6 +25,7 @@ public class TowersController : MonoBehaviour
 
     public void ChooseTowerToBuild(Tower tower)
     {
+        FindObjectOfType<AudioManager>().Play("selectTower");
         towerToBuild = tower;
     }
 

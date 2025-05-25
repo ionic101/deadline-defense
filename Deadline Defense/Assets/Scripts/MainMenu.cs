@@ -9,12 +9,14 @@ public class MainMenu : MonoBehaviour {
 
 	public void Play ()
 	{
-		sceneFader.FadeTo(levelToLoad);
+        FindObjectOfType<AudioManager>().Play("ButtonClick");
+        sceneFader.FadeTo(levelToLoad);
 	}
 
 	public void Quit ()
 	{
-		Debug.Log("Exciting...");
+        FindObjectOfType<AudioManager>().Play("ButtonClick");
+        Debug.Log("Exciting...");
 		Application.Quit();
 	}
 

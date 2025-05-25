@@ -76,6 +76,7 @@ public class UpgraderUI : MonoBehaviour
         PlayerStats.Money += curTower.SellCost;
         Destroy(curTower.gameObject);
         Upgrader.SetActive(false);
+        FindObjectOfType<AudioManager>().Play("sell");
 
     }
 }

@@ -90,10 +90,32 @@ public class Tower : MonoBehaviour
         GetComponent<Transform>().rotation = Quaternion.Euler(0f, lookRotation.eulerAngles.y, 0f);
     }
 
-	void Shoot ()
+    void Shoot ()
 	{
         if (targetEnemy)
             targetEnemy.TakeDamage(ShootDamage);
+
+
+		switch (Name) 
+		{
+			case "Полицейский":
+                FindObjectOfType<AudioManager>().Play("pistolet");
+				break;
+			case "Солдат":
+                FindObjectOfType<AudioManager>().Play("avtomat");
+				break;
+
+            case "Tower":
+                FindObjectOfType<AudioManager>().Play("granata");
+                break;
+
+        }
+		if (Name.Equals("Полицейский")) 
+		{
+            
+        }
+		Debug.Log(Name);
+		
 	}
 
     void OnDrawGizmosSelected()
