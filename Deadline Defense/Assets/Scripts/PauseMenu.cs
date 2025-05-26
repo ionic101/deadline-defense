@@ -13,33 +13,38 @@ public class PauseMenu : MonoBehaviour {
 	{
 		if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
 		{
-			Toggle();
+            Toggle();
 		}
 	}
 
 	public void Toggle ()
 	{
-		ui.SetActive(!ui.activeSelf);
+        ui.SetActive(!ui.activeSelf);
 
 		if (ui.activeSelf)
 		{
-			Time.timeScale = 0f;
+            FindObjectOfType<AudioManager>().PauseMusic();
+            Time.timeScale = 0f;
+			Debug.Log("signal");
 		} else
 		{
-			Time.timeScale = 1f;
+            FindObjectOfType<AudioManager>().UnPauseMusic();
+            Time.timeScale = 1f;
 		}
 	}
 
 	public void Retry ()
 	{
-		Toggle();
+        FindObjectOfType<AudioManager>().Play("ButtonClick");
+        Toggle();
 		sceneFader.FadeTo(SceneManager.GetActiveScene().name);
     }
 
 	public void Menu ()
 	{
-		Toggle();
+        FindObjectOfType<AudioManager>().Play("ButtonClick");
+        Toggle();
 		sceneFader.FadeTo(menuSceneName);
-	}
+    }
 
 }
