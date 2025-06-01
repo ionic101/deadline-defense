@@ -8,6 +8,7 @@ public class TowersController : MonoBehaviour
     public bool IsCanBuild {
         get
         {
+            Debug.Log(towerToBuild);
             return towerToBuild != null &&
                 PlayerStats.Money >= towerToBuild.BuyCost;
         } 

@@ -98,10 +98,10 @@ public class Tower : MonoBehaviour
 
 		switch (Name) 
 		{
-			case "Полицейский":
+			case "Policeman":
                 FindObjectOfType<AudioManager>().Play("pistolet");
 				break;
-			case "Солдат":
+			case "Soldier":
                 FindObjectOfType<AudioManager>().Play("avtomat");
 				break;
 
@@ -110,11 +110,6 @@ public class Tower : MonoBehaviour
                 break;
 
         }
-		if (Name.Equals("Полицейский")) 
-		{
-            
-        }
-		Debug.Log(Name);
 		
 	}
 
