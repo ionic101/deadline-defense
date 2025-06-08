@@ -23,26 +23,26 @@ public class PauseMenu : MonoBehaviour {
 
 		if (ui.activeSelf)
 		{
-            FindObjectOfType<AudioManager>().PauseMusic();
+            FindFirstObjectByType<AudioManager>().PauseMusic();
             Time.timeScale = 0f;
 			Debug.Log("signal");
 		} else
 		{
-            FindObjectOfType<AudioManager>().UnPauseMusic();
+            FindFirstObjectByType<AudioManager>().UnPauseMusic();
             Time.timeScale = 1f;
 		}
 	}
 
 	public void Retry ()
 	{
-        FindObjectOfType<AudioManager>().Play("ButtonClick");
+        FindFirstObjectByType<AudioManager>().Play("ButtonClick");
         Toggle();
 		sceneFader.FadeTo(SceneManager.GetActiveScene().name);
     }
 
 	public void Menu ()
 	{
-        FindObjectOfType<AudioManager>().Play("ButtonClick");
+        FindFirstObjectByType<AudioManager>().Play("ButtonClick");
         Toggle();
 		sceneFader.FadeTo(menuSceneName);
     }

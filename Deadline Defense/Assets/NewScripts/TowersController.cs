@@ -8,6 +8,7 @@ public class TowersController : MonoBehaviour
     public bool IsCanBuild {
         get
         {
+            Debug.Log(towerToBuild);
             return towerToBuild != null &&
                 PlayerStats.Money >= towerToBuild.BuyCost;
         } 
@@ -25,7 +26,7 @@ public class TowersController : MonoBehaviour
 
     public void ChooseTowerToBuild(Tower tower)
     {
-        FindObjectOfType<AudioManager>().Play("selectTower");
+        FindFirstObjectByType<AudioManager>().Play("selectTower");
         towerToBuild = tower;
     }
 

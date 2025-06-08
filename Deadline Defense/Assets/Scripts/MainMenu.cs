@@ -9,13 +9,13 @@ public class MainMenu : MonoBehaviour {
 
 	public void Play ()
 	{
-        FindObjectOfType<AudioManager>().Play("ButtonClick");
+        FindFirstObjectByType<AudioManager>().Play("ButtonClick");
         sceneFader.FadeTo(levelToLoad);
 	}
 
 	public void Quit ()
 	{
-        FindObjectOfType<AudioManager>().Play("ButtonClick");
+        FindFirstObjectByType<AudioManager>().Play("ButtonClick");
         Debug.Log("Exciting...");
 		Application.Quit();
 	}

@@ -40,7 +40,7 @@ public class UpgraderUI : MonoBehaviour
         curTower = tower;
         TowerTitle.text = tower.Name;
         TowerImage.sprite = tower.Sprite;
-        LevelCurText.text = tower.Level.ToString();
+        //LevelCurText.text = tower.Level.ToString();
         DamageCurText.text = tower.ShootDamage.ToString();
         RadiusCurText.text = tower.ShootRange.ToString();
         SellText.text = "Продать $" + tower.SellCost.ToString();
@@ -55,7 +55,7 @@ public class UpgraderUI : MonoBehaviour
         }
         else
         {
-            LevelUpgradeText.text = (tower.Level + 1).ToString();
+            //LevelUpgradeText.text = (tower.Level + 1).ToString();
             DamageUpgradeText.text = nextUpgrade.FireDamage.ToString();
             RadiusUpgradeText.text = nextUpgrade.FireRange.ToString();
             UpgradeText.text = "Улучшить $" + nextUpgrade.UpgradeCost.ToString();
@@ -76,7 +76,7 @@ public class UpgraderUI : MonoBehaviour
         PlayerStats.Money += curTower.SellCost;
         Destroy(curTower.gameObject);
         Upgrader.SetActive(false);
-        FindObjectOfType<AudioManager>().Play("sell");
+        FindFirstObjectByType<AudioManager>().Play("sell");
 
     }
 }

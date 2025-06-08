@@ -2,8 +2,10 @@ using UnityEngine;
 using System.Collections;
 
 public class GameManager : MonoBehaviour {
+    public const string EnemyTag = "Enemy";
 
-	public static bool GameIsOver;
+
+    public static bool GameIsOver;
 
 	public GameObject gameOverUI;
 	public GameObject completeLevelUI;
