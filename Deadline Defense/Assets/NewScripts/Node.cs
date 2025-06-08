@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UIElements;
 
 public class Node : MonoBehaviour {
 
@@ -14,6 +15,8 @@ public class Node : MonoBehaviour {
     public Tower tower;
     public Vector3 towerPosition { get { return transform.position + towerOffset; } }
 
+    private GameObject shootArea;
+
     private void SetColor(Color color)
 	{
 		rend.material.color = color;
@@ -25,6 +28,11 @@ public class Node : MonoBehaviour {
 		startColor = rend.material.color;
 
         towersController = TowersController.instance;
+
+
+        //shoot area
+        shootArea = GameObject.FindWithTag("ShootArea");
+        HideShootArea();
     }
 
 	void OnMouseDown ()
@@ -35,10 +43,13 @@ public class Node : MonoBehaviour {
 
 		if (tower != null)
 		{
+            DisplayShootArea();
             UpgraderUI.instance.UpdateData(tower);
             UpgraderUI.instance.Upgrader.SetActive(true);
 			return;
         }
+
+        HideShootArea();
 
 		if (towersController.IsCanBuild)
 		{
@@ -58,6 +69,22 @@ public class Node : MonoBehaviour {
             SetColor(hoverColor);
 		else if (tower != null)
 			SetColor(upgradeColor);
+    }
+
+	private void DisplayShootArea()
+	{
+        if (shootArea == null)
+            return;
+
+        shootArea.transform.localScale = new Vector3(tower.ShootRange * 2, shootArea.transform.localScale.y, tower.ShootRange * 2);
+        shootArea.transform.position = tower.transform.position;
+        shootArea.GetComponent<MeshRenderer>().enabled = true;
+    }
+
+    private void HideShootArea()
+    {
+        if (shootArea != null)
+            shootArea.GetComponent<MeshRenderer>().enabled = false;
     }
 
 	void OnMouseExit ()

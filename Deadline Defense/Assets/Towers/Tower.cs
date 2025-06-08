@@ -106,6 +106,9 @@ public class Tower : MonoBehaviour
         SellCost = Upgrades[curLevel].SellCost;
 		PlayerStats.Money -= Upgrades[curLevel].UpgradeCost;
         curLevel++;
+		GameObject shootArea = GameObject.FindWithTag("ShootArea");
+		if (shootArea != null)
+			shootArea.transform.localScale = new Vector3(ShootRange * 2, shootArea.transform.localScale.y, ShootRange * 2);
     }
 
     void OnDrawGizmosSelected()
