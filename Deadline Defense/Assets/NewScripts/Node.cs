@@ -3,7 +3,8 @@ using UnityEngine.EventSystems;
 
 public class Node : MonoBehaviour {
 
-	private static Color hoverColor = Color.gray;
+	private static Color hoverColor = Color.green;
+	private static Color upgradeColor = Color.yellow;
     private static Vector3 towerOffset = new Vector3(0, 0.5f, 0);
 
     private TowersController towersController;
@@ -50,11 +51,14 @@ public class Node : MonoBehaviour {
 	void OnMouseEnter ()
 	{
 		// if cursor on UI
-		if (EventSystem.current.IsPointerOverGameObject() || !towersController.IsCanBuild)
+		if (EventSystem.current.IsPointerOverGameObject())
 			return;
-		
-		SetColor(hoverColor);
-	}
+
+        if (towersController.IsCanBuild)
+            SetColor(hoverColor);
+		else if (tower != null)
+			SetColor(upgradeColor);
+    }
 
 	void OnMouseExit ()
 	{
