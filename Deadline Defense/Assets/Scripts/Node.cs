@@ -4,13 +4,15 @@ using UnityEngine.UIElements;
 
 public class Node : MonoBehaviour {
 
-	private static Color hoverColor = Color.green;
-	private static Color upgradeColor = Color.yellow;
+	private static Color hoverColor = new Color(0, 170, 0, 0.5f);
+	private static Color upgradeColor = new Color(240, 240, 0, 0.5f);
+    private static Color startColor = new Color(0, 0, 0, 0);
+    private static Color OnMouseEnterColor = new Color(150, 150, 150, 0.5f);
     private static Vector3 towerOffset = new Vector3(0, 0.5f, 0);
 
     private TowersController towersController;
     private Renderer rend;
-    private Color startColor;
+    
 
     public Tower tower;
     public Vector3 towerPosition { get { return transform.position + towerOffset; } }
@@ -25,10 +27,7 @@ public class Node : MonoBehaviour {
 	private void Start ()
 	{
 		rend = GetComponent<Renderer>();
-		startColor = rend.material.color;
-
         towersController = TowersController.instance;
-
 
         //shoot area
         shootArea = GameObject.FindWithTag("ShootArea");
@@ -40,6 +39,8 @@ public class Node : MonoBehaviour {
         // if cursor on UI
         if (EventSystem.current.IsPointerOverGameObject())
 			return;
+
+        Debug.Log("Press");
 
 		if (tower != null)
 		{
@@ -69,6 +70,8 @@ public class Node : MonoBehaviour {
             SetColor(hoverColor);
 		else if (tower != null)
 			SetColor(upgradeColor);
+        else
+            SetColor(OnMouseEnterColor);
     }
 
 	private void DisplayShootArea()

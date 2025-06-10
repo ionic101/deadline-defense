@@ -5,10 +5,11 @@ public class TowersController : MonoBehaviour
     public static TowersController instance;
     private Tower towerToBuild;
 
+    private GameObject cancelButton;
+
     public bool IsCanBuild {
         get
         {
-            Debug.Log(towerToBuild);
             return towerToBuild != null &&
                 PlayerStats.Money >= towerToBuild.BuyCost;
         } 
@@ -24,10 +25,23 @@ public class TowersController : MonoBehaviour
         instance = this;
     }
 
+    private void Start()
+    {
+        cancelButton = GameObject.FindWithTag("cancel");
+        cancelButton.SetActive(false);
+    }
+
     public void ChooseTowerToBuild(Tower tower)
     {
         FindFirstObjectByType<AudioManager>().Play("selectTower");
         towerToBuild = tower;
+        cancelButton.SetActive(true);
+    }
+
+    public void UnchooseTowerToBuild()
+    {
+        towerToBuild = null;
+        cancelButton.SetActive(false);
     }
 
     public void Build(Node node)
@@ -40,5 +54,6 @@ public class TowersController : MonoBehaviour
         PlayerStats.Money -= towerToBuild.BuyCost; 
         node.tower = Instantiate(towerToBuild, node.towerPosition, Quaternion.identity);
         towerToBuild = null;
+        cancelButton.SetActive(false);
     }
 }

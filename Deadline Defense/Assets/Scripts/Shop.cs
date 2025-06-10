@@ -29,4 +29,10 @@ public class Shop : MonoBehaviour
         towersController.ChooseTowerToBuild(Soldier);
 	}
 
+	public void ClearTower()
+	{
+		towersController.UnchooseTowerToBuild();
+
+    }
+
 }
